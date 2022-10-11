@@ -1,0 +1,106 @@
+{
+	"pizza": 
+	{
+	"id": 1,
+	"name": "pizza",
+	"preparation-time": 20 ,
+	"complexity": 2 ,
+	"cooking-apparatus": "oven"
+	},
+
+	"salad": {
+	"id": 2,
+	"name": "salad",
+	"preparation-time": 10 ,
+	"complexity": 1 ,
+	"cooking-apparatus": null
+	},
+
+	"zeama": {
+	"id": 3,
+	"name": "zeama",
+	"preparation-time": 7 ,
+	"complexity": 1 ,
+	"cooking-apparatus": "stove"
+	},
+
+	"Scallop Sashimi with Meyer Lemon Confit": {
+	"id": 4,
+	"name": "Scallop Sashimi with Meyer Lemon Confit",
+	"preparation-time": 32 ,
+	"complexity": 3 ,
+	"cooking-apparatus": null
+	},
+
+	"Island Duck with Mulberry Mustard": {
+	"id": 5,
+	"name": "Island Duck with Mulberry Mustard",
+	"preparation-time": 35 ,
+	"complexity": 3 ,
+	"cooking-apparatus": "oven"
+	},
+
+	"Waffles": {
+	"id": 6,
+	"name": "Waffles",
+	"preparation-time": 10 ,
+	"complexity": 1 ,
+	"cooking-apparatus": "stove"
+	},
+
+	"Aubergine": {
+	"id": 7,
+	"name": "Aubergine",
+	"preparation-time": 20 ,
+	"complexity": 2 ,
+	"cooking-apparatus": "oven"
+	},
+
+	"Lasagna": {
+	"id": 8,
+	"name": "Lasagna",
+	"preparation-time": 30 ,
+	"complexity": 2 ,
+	"cooking-apparatus": "oven"
+	},
+
+	"Burger": {
+	"id": 9,
+	"name": "Burger",
+	"preparation-time": 15 ,
+	"complexity": 1 ,
+	"cooking-apparatus": "stove"
+	},
+	
+	"Gyros": {
+	"id": 10,
+	"name": "Gyros",
+	"preparation-time": 15 ,
+	"complexity": 1 ,
+	"cooking-apparatus": null
+	},
+
+	"Kebab": {
+	"id": 11,
+	"name": "Kebab",
+	"preparation-time": 15 ,
+	"complexity": 1 ,
+	"cooking-apparatus": null
+	},
+	
+	"Unagi Maki":{
+	"id": 12,
+	"name": "Unagi Maki",
+	"preparation-time": 20 ,
+	"complexity": 2 ,
+	"cooking-apparatus": null
+	},
+
+	"Tobacco Chicken": {
+	"id": 13,
+	"name": "Tobacco Chicken",
+	"preparation-time": 30 ,
+	"complexity": 2 ,
+	"cooking-apparatus": "oven"
+	}
+}
