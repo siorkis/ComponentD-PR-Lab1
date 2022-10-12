@@ -1,63 +1,54 @@
 from this import d
 from flask import Flask, request
 import threading
-import table
-import waiter
+import producer
+import sender
 import json
 import random
 import time
 import requests
 
 app = Flask(__name__)
-tables = [table.Table(i, "free", []) for i in range(1, 11)]
-waiters = [waiter.Waiter(i) for i in range(1, 5)]
+producers = [producer.Producer(i, "free", []) for i in range(1, 11)]
+senders = [sender.Sender(i) for i in range(1, 5)]
 
 def food_pool():
     f = open('food.json')
     food = json.load(f)
     menu_list = {1: [], 2: [], 3: []}
     for line in food:
-        complexity = food[line]["complexity"]
-        menu_list[complexity].append(food[line]["name"])
-
+        eating_difficulty = food[line]["eating-difficulty"]
+        menu_list[eating_difficulty].append(food[line]["name"])
     f.close()
     return menu_list
 
 
-def new_tables(tables_list):
-    number_of_guests = random.randint(1, 10)
-    # print(number_of_guests, "nr guests FLAG")
+def new_producers(producers_list):
+    number_of_new_producers = random.randint(1, 10)
     counter = 0
-    for i in range(number_of_guests):
+    for i in range(number_of_new_producers):
         if counter != 10:
-            for table in tables_list:
-                # print(table.status, table.table_id, " - table status NEW_TABLES (free)")
-                if table.status == "free":
-                    table.status = "waiting_to_make"
-                    # print(table.status,  table.table_id, " - table status NEW_TABLES (waiting to make)")
+            for producer in producers_list:
+                if producer.status == "free":
+                    producer.status = "waiting_to_make"
                     counter = 0
                     break
                 else:
                     counter += 1
-
-        
-    return tables_list
+    return producers_list
 
 
-def take_data(waiter, table_list, _menu, _food_list):
+def take_data(sender, producer_list, _menu, _food_list):
     # find free table 
     # get order 
     # send order 
-    for table in table_list:
-        # print(table.status, table.table_id, " - DEBUG status TAKE_ORDER")
+    for table in producer_list:
         if table.status == "waiting_to_make":
             table.create_data(_menu)
             take_time = random.randint(2, 4)
             time.sleep(take_time)
             table.status = "waiting_for_data"
-            # print(table.status, table.table_id, " - DEBUG status TAKE_ORDER (waiting for order)")
-            # print(waiter.send_data(table, _food_list), "DEBUG take_order")
-            return waiter.send_data(table, _food_list)
+            return sender.send_data(table, _food_list)
 
 
 def initial_food_list():
@@ -70,30 +61,29 @@ def sendData():
     while True:
         menu = food_pool()
         food_list = initial_food_list()
-        new_tables(tables)
-        current_waiter = random.choice(waiters) 
+        
+        new_producers(producers)
+        current_sender = random.choice(senders) 
 
-        payload = take_data(current_waiter, tables, menu, food_list)
+        payload = take_data(current_sender, producers, menu, food_list)
         if payload == None:
             continue
         else:
             print(payload, "PAYLOAD")
-            post = requests.post("http://26.249.68.98:6000/order", json = payload)
-            # print(post, 'POST') 
+            post = requests.post("http://192.168.1.128:6000/order", json = payload)
             print("data has been sended to ComponentK")
             time.sleep(10)
         
         time.sleep(10)
-    return "data has been sended to ComponentK"
 
 @app.route('/distribution', methods=['POST'])
 def send():    
     data = request.get_json()
     print(data, "DATA POST")
     
-    table_id = data["table_id"]
-    table_id = int(table_id)
-    tables[table_id-1].status = "free"
+    producer_id = data["producer_id"]
+    producer_id = int(producer_id)
+    producers[producer_id-1].status = "free"
     print("data has been received from ComponentK")
     return "data has been received from ComponentK"
 
